@@ -33,7 +33,7 @@ int main()
 	//Declare array for westernFood,localFood,drinks
 	FoodItem westernFood[5] =
 	{
-		{"FCC", "Fried Chicken Chop", 11.00},
+		{"FCC", "Fried Chicken Chop", 9.00},
 		{"FC", "Fish and Chips", 14.50},
 		{"S", "Spaghetti", 10.50},
 		{"P", "Pizza", 12.50},
