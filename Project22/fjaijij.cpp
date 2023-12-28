@@ -18,7 +18,7 @@ char WesternFoodOrdering(string);
 char LocalFoodOrdering(string);
 char DrinkOrdering(string);
 void calculation(double price, int quantity, double total);
-string BillingSystem(string option4, );
+string BillingSystem ();
 //???? ???array ???????struct
 string Payment(string);
 
@@ -266,10 +266,4 @@ int main()
 			cout << "\t\tPlease wave your card here :D";
 	}
 	return 0;
-}
-
-string BillingSystem(option4)
-{
-	if (option4 == westernFood[i].name)
-		return string();
 }
