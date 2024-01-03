@@ -270,8 +270,12 @@ int main()
 
 string BillingSystem(string option4, int total)
 {
-	if (option4 == "FCC" || "fcc")
+	if (option4 == "FCC" || option4=="fcc")
 		cout << "Fried Chicken Chop-----" << total << endl;
-	else if (option4 == "")
+	else if (option4 == "FCC" || option4 == "fcc")
+		cout << "Fish and Chips-----" << total << endl;
+	else if (
+		cout << "Fried Chicken Chop-----" << total << endl;
 		return string();
+
 }
