@@ -67,7 +67,7 @@ int main()
 		cin >> option;
 		if (option != 'D' && option != 'd' && option != 'T' && option != 't')
 			//put && because if user didn't enter one of it, all these statements will be false?
-			std::cout << "\t\tYou've entered the wrong input :C" << endl;
+			cout << "\t\tYou've entered the wrong input :C" << endl;
 	} while (option != 'D' && option != 'd' && option != 'T' && option != 't');
 	/*The page will keep displaying welcome to ........... to ask user to choose whether he or she wants to dine in or take away if
 		 the user didn't enter the correct input*/
