@@ -14,6 +14,8 @@ struct DrinkItem
 	string name;
 	double price;
 };
+
+//function declaration
 void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, double& total, int& quantity, char& ans);
 void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, double& total, int& quantity, char& ans);
 char DrinkOrdering(string);
@@ -61,7 +63,6 @@ int main()
 	cout << "*************************************************************************" << endl;
 	do {
 		cout << "\tWelcome to our restaurant. You can order by selecting " << endl;
-
 		cout << "\t\tDINE IN (D)\t\tTAKE AWAY (T)" << endl;
 		cout << "\t\t\tYour selection >> ";
 		cin >> option;
@@ -182,7 +183,7 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 		cout << "\t\tYour selection :";
 		cin >> option4;
 		if (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b")
-			std::cout << "\t\t*******Wrong input dear :V*******";
+			std::cout << "\t\t*******Wrong input dear :V*******" << endl;
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> quantity;
@@ -227,7 +228,6 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 		cin >> option5;
 		if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
 			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
-		break;
 	} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> quantity;
