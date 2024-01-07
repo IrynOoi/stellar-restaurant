@@ -101,6 +101,7 @@ int main()
 					{
 						LocalFoodOrdering(option3, localFood, price, total, quantity, ans);
 					}
+				}
 					//Drinks
 					else if (option2 == 'D' || option2 == 'd')
 					{
@@ -142,7 +143,6 @@ int main()
 						cin >> ans;
 						break;
 					}
-				}
 
 				else
 					cout << "\tYou've entered the wrong input, please try again.";
