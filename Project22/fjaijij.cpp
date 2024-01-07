@@ -151,8 +151,12 @@ int main()
 							price = 3.50 * quantity;
 							total += price;
 						}
-						cout << "Do you wish to add more to your cart? :D (y/n) >> ";
-						cin >> ans;
+						do {
+							cout << "Do you wish to add more to your cart? :D (y/n) >> ";
+							cin >> ans;
+							if (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N')
+								cout << "You've entered the wrong input. Please enter either y or n :)" << endl;
+						} while (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N');
 						break;
 					}
 
@@ -238,9 +242,12 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 		price = 5.50 * quantity;
 		total += price;
 	}
-
-	cout << "Do you wish to add more to your cart? :D (y/n) >> ";
-	cin >> ans;
+	do {
+		cout << "Do you wish to add more to your cart? :D (y/n) >> ";
+		cin >> ans;
+		if (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N')
+			cout << "You've entered the wrong input. Please enter either y or n :)" << endl;
+	} while (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N');
 	return;
 }
 
@@ -293,8 +300,12 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 		price = 7 * quantity;
 		total += price;
 	}
-	cout << "Do you wish to add more to your cart? :D (y/n) >> ";
-	cin >> ans;
+	do {
+		cout << "Do you wish to add more to your cart? :D (y/n) >> ";
+		cin >> ans;
+		if (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N')
+			cout << "You've entered the wrong input. Please enter either y or n :)" << endl;
+	} while (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N');
 	return;
 }
 
