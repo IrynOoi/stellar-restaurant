@@ -20,7 +20,7 @@ char DrinkOrdering(string);
 void calculation(double price, int quantity, double total);
 string BillingSystem();
 //???? ???array ???????struct
-string Payment(string);
+string Payment(double& total);
 
 int main()
 {	// Define arrays for food items
@@ -162,37 +162,8 @@ int main()
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
 	//if user enters input other than F and D, this will be displayed
 
-	string option7, card;
-	double paid, balance;
-	do {
-		cout << "\n\t\tPlease choose your preferred payment method :" << endl;
-		cout << "\t\t1: Cash - (C)" << endl;
-		cout << "\t\t2: Touch N Go - (TNG)" << endl;
-		cout << "\t\t3: Maybank QR - (MQR)" << endl;
-		cout << "\t\t4: Visa - (V)" << endl;
-		cout << "\t\t5: Debit / Credit Card - (DC)" << endl;
-		cout << "\t\tI preferred to pay by ";
-		cin >> option7;
-	} while (option7 != "C" && option7 != "c" && option7 != "TNG" && option7 != "tng" && option7 != "MQR" && option7 != "mqr" && option7 != "V" && option7 != "v" && option7 != "DC" && option7 != "dc");
-	if (option7 == "C" || option7 == "c")
-	{
-		cout << "\t\tAmount paid >> RM ";
-		cin >> paid;
-		balance = paid - total;
-		cout << "\t\tBalance >> RM " << balance;
-	}
-	else if (option7 == "TNG" || option7 == "tng" || option7 == "MQR" || option7 == "mqr")
-	{
-		cout << "Please scan the QR code displayed on the screen. Thankiuuu ~~";
-	}
-	else if (option7 == "V" || option7 == "v" || option7 == "DC" || option7 == "dc") {
-		cout << "\t\tDo you wish to pay (P) or wave (W)? :D";
-		cin >> card;
-		if (card == "P" || card == "p")
-			cout << "Please hold on a minute...";
-		else if (card == "W" || card == "w")
-			cout << "\t\tPlease wave your card here :D";
-	}
+	Payment(total);
+
 	return 0;
 }
 
@@ -282,4 +253,44 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 	cout << "Do you wish to add more to your cart? :D (y/n) >> ";
 	cin >> ans;
 	return;
+}
+
+string Payment(double& total)
+{
+	string option7, card;
+	double paid, balance;
+	do {
+		cout << "\n\t\tPlease choose your preferred payment method :" << endl;
+		cout << "\t\t1: Cash - (C)" << endl;
+		cout << "\t\t2: Touch N Go - (TNG)" << endl;
+		cout << "\t\t3: Maybank QR - (MQR)" << endl;
+		cout << "\t\t4: Visa - (V)" << endl;
+		cout << "\t\t5: Debit / Credit Card - (DC)" << endl;
+		cout << "\t\tI preferred to pay by ";
+		cin >> option7;
+		if (option7 != "C" && option7 != "c" && option7 != "TNG" && option7 != "tng" && option7 != "MQR" && option7 != "mqr" && option7 != "V" && option7 != "v" && option7 != "DC" && option7 != "dc")
+		{
+			cout << "\tSorry we do not offer the following payment method. Please enter another payment method that is listed." << endl;
+		}
+	} while (option7 != "C" && option7 != "c" && option7 != "TNG" && option7 != "tng" && option7 != "MQR" && option7 != "mqr" && option7 != "V" && option7 != "v" && option7 != "DC" && option7 != "dc");
+	if (option7 == "C" || option7 == "c")
+	{
+		cout << "\t\tAmount paid >> RM ";
+		cin >> paid;
+		balance = paid - total;
+		cout << "\t\tBalance >> RM " << balance;
+	}
+	else if (option7 == "TNG" || option7 == "tng" || option7 == "MQR" || option7 == "mqr")
+	{
+		cout << "Please scan the QR code displayed on the screen. Thankiuuu ~~";
+	}
+	else if (option7 == "V" || option7 == "v" || option7 == "DC" || option7 == "dc") {
+		cout << "\t\tDo you wish to pay (P) or wave (W)? :D >> ";
+		cin >> card;
+		if (card == "P" || card == "p")
+			cout << "Please hold on a minute...";
+		else if (card == "W" || card == "w")
+			cout << "\t\tPlease wave your card here :D";
+	}
+	return 0;
 }
