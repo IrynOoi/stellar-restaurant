@@ -107,12 +107,12 @@ int main()
 					{
 						string option6;
 						do {
-							cout << "Drink Items:" << endl;
+							cout << "\t\tDrink Items:" << endl;
 							for (int i = 0; i < 5; ++i) {
 								cout << "\t\t" << i + 1 << ") " << drinks[i].name << " (" << drinks[i].code << ") - RM " << drinks[i].price << endl;
 							}
 
-							cout << "\t\tYour selection :";
+							cout << "\t\tYour selection : ";
 							cin >> option6;
 							if (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj")
 								cout << "\t\tni hao :D wrong input le :C" << endl;
@@ -193,12 +193,12 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 	string option4;
 	do {
 		//Print out the western food list
-		std::cout << "Western food" << endl;
+		std::cout << "\t\tWestern food" << endl;
 		for (int i = 0; i < 5; ++i)
 		{
-			cout << i + 1 << ") " << westernFood[i].name << " (" << westernFood[i].code << ") - RM " << westernFood[i].price << endl;
+			cout << "\t\t" << i + 1 << ") " << westernFood[i].name << " (" << westernFood[i].code << ") - RM " << westernFood[i].price << endl;
 		}
-		cout << "\t\tYour selection :";
+		cout << "\t\tYour selection : ";
 		cin >> option4;
 		if (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b")
 			std::cout << "\t\t*******Wrong input dear :V*******" << endl;
@@ -249,12 +249,12 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 	string option5;
 	do {
 		//Print out the local food list
-		cout << "Local food" << endl;
+		cout << "\t\tLocal food" << endl;
 		for (int i = 0; i < 5; ++i)
 		{
-			cout << i + 1 << ": " << localFood[i].name << " (" << localFood[i].code << ") - RM " << localFood[i].price << endl;
+			cout << "\t\t" << i + 1 << ") " << localFood[i].name << " (" << localFood[i].code << ") - RM " << localFood[i].price << endl;
 		}
-		cout << "\t\tYour selection :";
+		cout << "\t\tYour selection : ";
 		cin >> option5;
 		if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
 			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
