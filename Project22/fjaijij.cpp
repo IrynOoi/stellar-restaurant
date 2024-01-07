@@ -15,7 +15,7 @@ struct DrinkItem
 	double price;
 };
 void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, double& total, int& quantity, char& ans);
-void LocalFoodOrdering(string);
+void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, double& total, int& quantity, char& ans);
 char DrinkOrdering(string);
 void calculation(double price, int quantity, double total);
 string BillingSystem();
@@ -60,7 +60,7 @@ int main()
 	cout << "\t\t\tSTELLAR RESTAURANT" << endl;
 	cout << "*************************************************************************" << endl;
 	do {
-		std::cout << "\tWelcome to our restaurant. You can ordering by selecting " << endl;
+		cout << "\tWelcome to our restaurant. You can order by selecting " << endl;
 
 		cout << "\t\tDINE IN (D)\t\tTAKE AWAY (T)" << endl;
 		cout << "\t\t\tYour selection >> ";
@@ -98,59 +98,22 @@ int main()
 				}
 				else if (option3 == "LF" || option3 == "lf")
 				{
-					string option5;
-					do {
-						//Print out the local food list
-						cout << "Western food" << endl;
-						for (int i = 0; i < 5; ++i)
-						{
-							std::cout << i + 1 << ": " << localFood[i].name << " (" << localFood[i].code << ") - RM " << westernFood[i].price << endl;
-						}
-						cin >> option5;
-						if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
-							std::cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
-						break;
-					} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
-					cout << "\t\tPlease enter the quantity >> ";
-					cin >> quantity;
-					if (option5 == "NL" || option5 == "nl") {
-						price = 7 * quantity;
-						total += price;
-					}
-					else if (option5 == "AL" || option5 == "al") {
-						price = 7 * quantity;
-						total += price;
-					}
-					else if (option5 == "CM" || option5 == "cm") {
-						price = 7 * quantity;
-						total += price;
-					}
-					else if (option5 == "RC" || option5 == "rc") {
-						price = 1.50 * quantity;
-						total += price;
-					}
-					else if (option5 == "NK" || option5 == "nk") {
-						price = 7 * quantity;
-						total += price;
-					}
-					cout << "Do you wish to add more to your cart? :D (y/n) >> ";
-					cin >> ans;
-					break;
+					LocalFoodOrdering(option3, localFood, price, total, quantity, ans);
 				}
 				//Drinks
 				else if (option2 == 'D' || option2 == 'd')
 				{
 					string option6;
 					do {
-						std::cout << "Drink Items:" << endl;
+						cout << "Drink Items:" << endl;
 						for (int i = 0; i < 5; ++i) {
-							std::cout << "\t\t" << i + 1 << ") " << drinks[i].name << " (" << drinks[i].code << ") - RM " << drinks[i].price << endl;
+							cout << "\t\t" << i + 1 << ") " << drinks[i].name << " (" << drinks[i].code << ") - RM " << drinks[i].price << endl;
 						}
 
 						cout << "\t\tYour selection :";
 						cin >> option6;
 						if (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj")
-							std::cout << "\t\tni hao :D wrong input le :C" << endl;
+							cout << "\t\tni hao :D wrong input le :C" << endl;
 					} while (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj");
 					cout << "\t\tPlease enter the quantity >> ";
 					cin >> quantity;
@@ -244,6 +207,7 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 		{
 			cout << i + 1 << ") " << westernFood[i].name << " (" << westernFood[i].code << ") - RM " << westernFood[i].price << endl;
 		}
+		cout << "\t\tYour selection :";
 		cin >> option4;
 		if (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b")
 			std::cout << "\t\t*******Wrong input dear :V*******";
@@ -274,7 +238,48 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 
 	cout << "Do you wish to add more to your cart? :D (y/n) >> ";
 	cin >> ans;
-
-
+	return;
 }
 
+void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, double& total, int& quantity, char& ans)
+{
+	string option5;
+	do {
+		//Print out the local food list
+		cout << "Local food" << endl;
+		for (int i = 0; i < 5; ++i)
+		{
+			cout << i + 1 << ": " << localFood[i].name << " (" << localFood[i].code << ") - RM " << localFood[i].price << endl;
+		}
+		cout << "\t\tYour selection :";
+		cin >> option5;
+		if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
+			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
+		break;
+	} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
+	cout << "\t\tPlease enter the quantity >> ";
+	cin >> quantity;
+	if (option5 == "NL" || option5 == "nl") {
+		price = 7 * quantity;
+		total += price;
+	}
+	else if (option5 == "AL" || option5 == "al") {
+		price = 7 * quantity;
+		total += price;
+	}
+	else if (option5 == "CM" || option5 == "cm") {
+		price = 7 * quantity;
+		total += price;
+	}
+	else if (option5 == "RC" || option5 == "rc") {
+		price = 1.50 * quantity;
+		total += price;
+	}
+	else if (option5 == "NK" || option5 == "nk") {
+		price = 7 * quantity;
+		total += price;
+	}
+	cout << "Do you wish to add more to your cart? :D (y/n) >> ";
+	cin >> ans;
+	return;
+}
