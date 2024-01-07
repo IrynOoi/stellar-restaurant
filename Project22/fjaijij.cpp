@@ -20,14 +20,14 @@ char DrinkOrdering(string);
 void calculation(double price, int quantity, double total);
 string BillingSystem();
 //???? ???array ???????struct
-string Payment(double& total);
+string Payment(char option, double& total, double& takeaway_total);
 
 int main()
 {	// Define arrays for food items
 
 	char option, option2, ans;
 	string option3; //option3 is a string since it has more than one alphabet
-	double price, total = 0;
+	double price, total = 0, takeaway_total;
 	int quantity;
 
 	//Declare array for westernFood,localFood,drinks
@@ -155,14 +155,15 @@ int main()
 		}
 		else if (option == 'T' || option == 't')
 		{
-			cout << total + TAKEAWAYEXTRA;
+			takeaway_total = total + TAKEAWAYEXTRA;
+			cout << takeaway_total;
 		}
 	}
 	else
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
 	//if user enters input other than F and D, this will be displayed
 
-	Payment(total);
+	Payment(option, total, takeaway_total);
 
 	return 0;
 }
@@ -255,7 +256,7 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 	return;
 }
 
-string Payment(double& total)
+string Payment(char option, double& total, double& takeaway_total)
 {
 	string option7, card;
 	double paid, balance;
@@ -273,12 +274,22 @@ string Payment(double& total)
 			cout << "\tSorry we do not offer the following payment method. Please enter another payment method that is listed." << endl;
 		}
 	} while (option7 != "C" && option7 != "c" && option7 != "TNG" && option7 != "tng" && option7 != "MQR" && option7 != "mqr" && option7 != "V" && option7 != "v" && option7 != "DC" && option7 != "dc");
+
 	if (option7 == "C" || option7 == "c")
 	{
-		cout << "\t\tAmount paid >> RM ";
-		cin >> paid;
-		balance = paid - total;
-		cout << "\t\tBalance >> RM " << balance;
+		if (option == 'D' || option == 'd')
+		{
+			cout << "\t\tAmount paid >> RM ";
+			cin >> paid;
+			balance = paid - total;
+			cout << "\t\tBalance >> RM " << balance;
+		}
+		else {
+			cout << "\t\tAmount paid >> RM ";
+			cin >> paid;
+			balance = paid - takeaway_total;
+			cout << "\t\tBalance >> RM " << balance;
+		}
 	}
 	else if (option7 == "TNG" || option7 == "tng" || option7 == "MQR" || option7 == "mqr")
 	{
