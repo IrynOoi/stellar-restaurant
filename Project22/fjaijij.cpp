@@ -119,6 +119,18 @@ int main()
 						} while (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj");
 						cout << "\t\tPlease enter the quantity >> ";
 						cin >> quantity;
+						while (1)
+						{
+							if (cin.fail()) {
+								cin.clear();
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');
+								cout << "\t\tPlease enter a number." << endl
+									<< "\t\tPlease enter the quantity >> ";
+								cin >> quantity;
+							}
+							if (!cin.fail())
+								break;
+						}
 						if (option6 == "M" || option6 == "m") {
 							price = 2.50 * quantity;
 							total += price;
@@ -192,6 +204,18 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> quantity;
+	while (1)
+	{
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "\t\tPlease enter a number." << endl
+				<< "\t\tPlease enter the quantity >> ";
+			cin >> quantity;
+		}
+		if (!cin.fail())
+			break;
+	}
 
 	if (option4 == "FCC" || option4 == "fcc") {
 		price = 12 * quantity;
@@ -234,8 +258,20 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 		if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
 			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
 	} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
-	cout << "\t\tPlease enter the quantity >> ";
-	cin >> quantity;
+		cout << "\t\tPlease enter the quantity >> ";
+		cin >> quantity;
+		while (1)
+		{
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "\t\tPlease enter a number." << endl
+					<< "\t\tPlease enter the quantity >> ";
+				cin >> quantity;
+			}
+			if (!cin.fail())
+			break;
+		}
 	if (option5 == "NL" || option5 == "nl") {
 		price = 7 * quantity;
 		total += price;
