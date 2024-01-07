@@ -2,6 +2,7 @@
 using namespace std;
 #define TAKEAWAYEXTRA 0.20
 //RM0.20 will be charged if the user choose "take away"
+
 struct FoodItem
 {
 	string code;
@@ -57,6 +58,7 @@ int main()
 		{"LT", "Lemon Tea", 3.00},
 		{"OJ", "Orange Juice", 3.50}
 	};
+
 	//Display our homepage
 	cout << "*************************************************************************" << endl;
 	cout << "\t\t\tSTELLAR RESTAURANT" << endl;
@@ -93,10 +95,12 @@ int main()
 						}
 					} while (option3 != "WF" && option3 != "wf" && option3 != "LF" && option3 != "lf");
 
+					//Western food
 					if (option3 == "WF" || option3 == "wf")
 					{
 						WesternFoodOrdering(option3, westernFood, price, total, quantity, ans);
 					}
+					//Local food
 					else if (option3 == "LF" || option3 == "lf")
 					{
 						LocalFoodOrdering(option3, localFood, price, total, quantity, ans);
@@ -107,11 +111,11 @@ int main()
 					{
 						string option6;
 						do {
+							//print out drinks list
 							cout << "\t\tDrink Items:" << endl;
 							for (int i = 0; i < 5; ++i) {
 								cout << "\t\t" << i + 1 << ") " << drinks[i].name << " (" << drinks[i].code << ") - RM " << drinks[i].price << endl;
 							}
-
 							cout << "\t\tYour selection : ";
 							cin >> option6;
 							if (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj")
@@ -119,6 +123,7 @@ int main()
 						} while (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj");
 						cout << "\t\tPlease enter the quantity >> ";
 						cin >> quantity;
+						//if user enters alphabet
 						while (1)
 						{
 							if (cin.fail()) {
@@ -159,7 +164,6 @@ int main()
 						} while (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N');
 						break;
 					}
-
 				else
 					cout << "\tYou've entered the wrong input, please try again.";
 			} while (option2 != 'F' && option2 != 'f' && option2 != 'D' && option2 != 'd');
@@ -177,6 +181,7 @@ int main()
 	return 0;
 }
 
+//calculation function definition
 void calculation(char option, double& total, double& takeaway_total)
 {
 	cout << "Total price is RM ";
@@ -191,13 +196,14 @@ void calculation(char option, double& total, double& takeaway_total)
 		
 	}
 }
+
+//western food ordering function definition
 void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, double& total, int& quantity, char& ans)
 {
-
 	string option4;
 	do {
 		//Print out the western food list
-		std::cout << "\t\tWestern food" << endl;
+		cout << "\t\tWestern food" << endl;
 		for (int i = 0; i < 5; ++i)
 		{
 			cout << "\t\t" << i + 1 << ") " << westernFood[i].name << " (" << westernFood[i].code << ") - RM " << westernFood[i].price << endl;
@@ -209,6 +215,7 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> quantity;
+	//if user enters alphabet
 	while (1)
 	{
 		if (cin.fail()) {
@@ -221,7 +228,6 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 		if (!cin.fail())
 			break;
 	}
-
 	if (option4 == "FCC" || option4 == "fcc") {
 		price = 12 * quantity;
 		total += price;
@@ -251,6 +257,7 @@ void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, 
 	return;
 }
 
+//local food ordering function definition
 void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, double& total, int& quantity, char& ans)
 {
 	string option5;
@@ -266,20 +273,21 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 		if (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk")
 			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
 	} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
-		cout << "\t\tPlease enter the quantity >> ";
-		cin >> quantity;
-		while (1)
-		{
-			if (cin.fail()) {
-				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "\t\tPlease enter a number." << endl
-					<< "\t\tPlease enter the quantity >> ";
-				cin >> quantity;
-			}
-			if (!cin.fail())
-			break;
+	cout << "\t\tPlease enter the quantity >> ";
+	cin >> quantity;
+	//if user enters alphabet
+	while (1)
+	{
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "\t\tPlease enter a number." << endl
+				<< "\t\tPlease enter the quantity >> ";
+			cin >> quantity;
 		}
+		if (!cin.fail())
+		break;
+	}
 	if (option5 == "NL" || option5 == "nl") {
 		price = 7 * quantity;
 		total += price;
@@ -309,6 +317,7 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 	return;
 }
 
+//payment function definition
 string Payment(char option, double& total, double& takeaway_total)
 {
 	string option7, card;
@@ -330,16 +339,44 @@ string Payment(char option, double& total, double& takeaway_total)
 
 	if (option7 == "C" || option7 == "c")
 	{
+		//if user chooses dine in
 		if (option == 'D' || option == 'd')
 		{
 			cout << "\t\tAmount paid >> RM ";
 			cin >> paid;
+			//if user enters alphabet
+			while (1)
+			{
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cout << "\t\tPlease enter a number." << endl
+						<< "\t\tAmount paid >> RM ";
+					cin >> paid;
+				}
+				if (!cin.fail())
+				break;
+			}
 			balance = paid - total;
 			cout << "\t\tBalance >> RM " << balance;
 		}
+		//if user chooses takeaway
 		else {
 			cout << "\t\tAmount paid >> RM ";
 			cin >> paid;
+			//if user enters alphabet
+			while (1)
+			{
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cout << "\t\tPlease enter a number." << endl
+						<< "\t\tAmount paid >> RM ";
+					cin >> paid;
+				}
+				if (!cin.fail())
+					break;
+			}
 			balance = paid - takeaway_total;
 			cout << "\t\tBalance >> RM " << balance;
 		}
