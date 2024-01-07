@@ -19,7 +19,7 @@ struct DrinkItem
 void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, double& total, int& quantity, char& ans);
 void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, double& total, int& quantity, char& ans);
 char DrinkOrdering(string);
-void calculation(char option, double& total, double& takeaway_total);
+void calculation(char option, double& total);
 void BillingSystem();
 //???? ???array ???????struct
 string Payment(char option, double& total, double& takeaway_total);
@@ -150,7 +150,7 @@ int main()
 			//if the user chooses other than F and D, it will loop back to the top where it asks user to choose food and drinks
 		} while (ans == 'Y' || ans == 'y');
 		//if the user chooses Y (to add more to the cart), it will loop back to the top where it asks user to choose food and drinks
-		calculation(option, total, takeaway_total);
+		calculation(option, total);
 	}
 	else
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
@@ -161,7 +161,7 @@ int main()
 	return 0;
 }
 
-void calculation(char option, double& total, double& takeaway_total)
+void calculation(char option, double& total)
 {
 	cout << "Total price is RM ";
 	if (option == 'D' || option == 'd')
@@ -171,7 +171,7 @@ void calculation(char option, double& total, double& takeaway_total)
 	else if (option == 'T' || option == 't')
 	{
 		cout << total + TAKEAWAYEXTRA;
-		cout << takeaway_total;
+		
 	}
 }
 void WesternFoodOrdering(string option3, FoodItem westernFood[], double& price, double& total, int& quantity, char& ans)
