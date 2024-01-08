@@ -317,6 +317,68 @@ void LocalFoodOrdering(string option3, FoodItem localFood[], double& price, doub
 	return;
 }
 
+//drinks ordering function definition
+double DRINKS(string option3, DrinkItem drinks[], double& price, double& total, int& quantity, char& ans)
+{
+	string option6;
+	do {
+		//print out drinks list
+		cout << "Drink Items:" << endl;
+		for (int i = 0; i < 5; ++i) {
+			cout << "\t\t" << i + 1 << ": " << drinks[i].name << " (" << drinks[i].code << ") - RM " << drinks[i].price << endl;
+		}
+
+		cout << "\t\tYour selection :";
+		cin >> option6;
+		if (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj")
+			cout << "\t\tni hao :D wrong input le :C" << endl;
+	} while (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj");
+
+	cout << "\t\tPlease enter the quantity >> ";
+	cin >> quantity;
+	//if user enters alphabet
+	while (1)
+	{
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "\t\tPlease enter a number." << endl
+				<< "\t\tPlease enter the quantity >> ";
+			cin >> quantity;
+		}
+		if (!cin.fail())
+			break;
+	}
+	if (option6 == "M" || option6 == "m") {
+		price = 2.50 * quantity;
+		total += price;
+	}
+	else if (option6 == "TT" || option6 == "tt") {
+		price = 2.50 * quantity;
+		total += price;
+	}
+	else if (option6 == "KO" || option6 == "ko") {
+		price = 2 * quantity;
+		total += price;
+	}
+	else if (option6 == "LT" || option6 == "lt") {
+		price = 3 * quantity;
+		total += price;
+	}
+	else if (option6 == "OJ" || option6 == "oj") {
+		price = 3.50 * quantity;
+		total += price;
+	}
+	do {
+		cout << "Do you wish to add more to your cart? :D (y/n) >> ";
+		cin >> ans;
+		if (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N')
+			cout << "You've entered the wrong input. Please enter either y or n :)" << endl;
+	} while (ans != 'y' && ans != 'n' && ans != 'Y' && ans != 'N');
+
+	return;
+}
+
 //payment function definition
 string Payment(char option, double& total, double& takeaway_total)
 {
