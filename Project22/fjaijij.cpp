@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 #define TAKEAWAYEXTRA 0.20
 //RM0.20 will be charged if the user choose "take away"
@@ -153,12 +154,6 @@ int main()
 		} while (answer == "Y" || answer == "y");
 		//if the user chooses Y (to add more to the cart), it will loop back to the top where it asks user to choose food and drinks
 
-		/*for (i = 0; i != 0; i++)
-		{
-			receipt[i].price = price;
-			receipt[i].total = total;
-			receipt[i].quantity = quantity;
-		}*/
 		calculation(&TOTAL);
 		TOTAL = TOTAL;
 	}
@@ -471,22 +466,24 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)
 {
 	int j;
-	cout << "\n\n\n\n***********************************************************************" << endl;
-	cout << "\t\t\t\tRECEIPT" << endl;
-	cout << "***********************************************************************" << endl;
-	cout << "  Item Name" << setw(25) << "Item Quantity" << setw(7) << "Price" << setw(10) << "Subtotal" << endl;
+	ofstream outputfile("Receipt.txt", ios::out | ios::app);
+	outputfile << "\n***********************************************************************" << endl;
+	outputfile << "\t\t\t\tRECEIPT" << endl;
+	outputfile << "***********************************************************************" << endl;
+	outputfile << "    Item Name" << setw(25) << "Item Quantity"  << setw(15) << " Price" << setw(20) << "Subtotal" << endl;
 	for (j = 0; j < order; j++)
 	{
-		cout << j + 1 << ": " << receipt[j].name;
-		cout << setw(10) << receipt[j].quantity << setw(10) << receipt[j].pricePerEach << setw(10) << receipt[j].quantity * receipt[j].pricePerEach << endl;
+		outputfile << j + 1 << ": " << receipt[j].name << endl;
+		outputfile << setw(30) << receipt[j].quantity << setw(20) << receipt[j].pricePerEach << setw(20) << receipt[j].quantity * receipt[j].pricePerEach << endl;
 	}
-	cout << "\nPayment Method:\t " << paymentmethod;
-	cout << "\nGrand Total   :\t" << TOTAL << endl;
+	outputfile << "\nPayment Method:\t " << paymentmethod;
+	outputfile << "\nGrand Total   :\t" << TOTAL << endl;
 	if (opt7 == "C")
 	{
-		cout << "Paid        :\t" << Paid << endl;
-		cout << "Balance     :\t" << Balance << endl;
+		outputfile << "Paid        :\t" << Paid << endl;
+		outputfile << "Balance     :\t" << Balance << endl;
 	}
 	else
-		cout << "\nPaid. Thankyou, please come again.";
+		outputfile << "\nPaid. Thankyou, please come again.";
+	outputfile << "***********************************************************************" << endl;
 }
