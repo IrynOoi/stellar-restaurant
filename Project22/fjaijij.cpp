@@ -155,7 +155,6 @@ int main()
 		//if the user chooses Y (to add more to the cart), it will loop back to the top where it asks user to choose food and drinks
 
 		calculation(&TOTAL);
-		TOTAL = TOTAL;
 	}
 	else
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
@@ -174,13 +173,13 @@ void calculation(double* TOTAL)
 	if (option == 'D' || option == 'd')
 	{
 		*TOTAL = total;
-		cout << "Total >> RM" << *TOTAL;
+		cout << *TOTAL;
 	}
 	else if (option == 'T' || option == 't')
 	{
 		*TOTAL = total + TAKEAWAYEXTRA;
-		cout << "RM0.20 is charged for takeaway.";
-		cout << "\nTotal >> RM" << *TOTAL;
+		cout << *TOTAL;
+		cout << "**RM0.20 is charged for takeaway.";
 	}
 }
 
@@ -466,24 +465,25 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)
 {
 	int j;
-	ofstream outputfile("Receipt.txt", ios::out | ios::app);
+	ofstream outputfile("Receipt.txt", ios::out);
 	outputfile << "\n***********************************************************************" << endl;
 	outputfile << "\t\t\t\tRECEIPT" << endl;
 	outputfile << "***********************************************************************" << endl;
-	outputfile << "    Item Name" << setw(25) << "Item Quantity"  << setw(15) << " Price" << setw(20) << "Subtotal" << endl;
+	outputfile << "    Item Name" << setw(25) << "Item Quantity"  << setw(14) << " Price" << setw(20) << "Subtotal" << endl;
 	for (j = 0; j < order; j++)
 	{
 		outputfile << j + 1 << ": " << receipt[j].name << endl;
 		outputfile << setw(30) << receipt[j].quantity << setw(20) << receipt[j].pricePerEach << setw(20) << receipt[j].quantity * receipt[j].pricePerEach << endl;
 	}
 	outputfile << "\nPayment Method:\t " << paymentmethod;
-	outputfile << "\nGrand Total   :\t" << TOTAL << endl;
+	outputfile << "\nGrand Total   :RM" << TOTAL << endl;
 	if (opt7 == "C")
 	{
-		outputfile << "Paid        :\t" << Paid << endl;
-		outputfile << "Balance     :\t" << Balance << endl;
+		outputfile << "Paid          :RM" << Paid << endl;
+		outputfile << "Balance       :RM" << Balance << endl;
 	}
 	else
-		outputfile << "\nPaid. Thankyou, please come again.";
+		outputfile << "\nPaid.";
+	outputfile << "Thankyou, please come again." << endl;
 	outputfile << "***********************************************************************" << endl;
 }
