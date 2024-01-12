@@ -1,6 +1,6 @@
 #include <iostream>
-#include <iomanip>
-#include <fstream>
+#include <iomanip> //uses setw()
+#include <fstream> 
 using namespace std;
 #define TAKEAWAYEXTRA 0.20
 //RM0.20 will be charged if the user choose "take away"
@@ -23,10 +23,10 @@ struct Receipt
 	int quantity;
 	double pricePerEach;
 };
-Receipt receipt[20];
+Receipt receipt[50]; 
 
 
-//Declare array for westernFood,localFood,drinks
+//Declare array of struct for westernFood,localFood,drinks
 FoodItem westernFood[5] =
 {
 	{"FCC", "Fried Chicken Chop", 12.00},
@@ -95,7 +95,7 @@ int main()
 		do
 		{
 			do {
-				order++;
+				order++; //updating for order as it will be used in the DisplayReceipt function 
 				cout << "\n\tPlease enter F for FOOD and D for DRINKS >> ";
 				cin >> option2;
 				if (option2 == 'F' || option2 == 'f')
@@ -107,15 +107,18 @@ int main()
 						if (option3 != "WF" && option3 != "wf" && option3 != "LF" && option3 != "lf")
 						{
 							cout << "\tYou've entered the wrong input, pls try again :V" << endl;
+							//This message is printed out if user enters other than WF,wf,LF,lf
 						}
 					} while (option3 != "WF" && option3 != "wf" && option3 != "LF" && option3 != "lf");
+					//loop back to ask user to choose between wf and lf only if user enters other than WF,wf,LF,lf
 
 					//Western food
 					if (option3 == "WF" || option3 == "wf")
 					{
-						WesternFoodOrdering(&name, &quantity, &pricePerEach);
+						WesternFoodOrdering(&name, &quantity, &pricePerEach); //function call of WesternFoodOrdering, the value is passed from the pointer to the address of each variable
 						receipt[i].quantity = quantity;
-						receipt[i].name = name;
+						receipt[i].name = name;  /*eg. the pointer in the function definition for name (*name) will point to value in certain
+						                          element in the westernFood[].name, then when receipt[i].name = name, it will refer to value store in &name*/
 						receipt[i].pricePerEach = pricePerEach;
 						i++;
 						cout << "Do you wish to add more to your cart? :D (y/n) >> ";
@@ -159,8 +162,7 @@ int main()
 	else
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
 	//if user enters input other than F and D, this will be displayed
-	Payment(&paid, &balance, &paymentmethod, &opt7);
-	paymentmethod = paymentmethod;
+	Payment(&paid, &balance, &paymentmethod, &opt7); 
 	DisplayReceipt(TOTAL, paid, balance, order, opt7);
 
 	return 0;
@@ -172,7 +174,7 @@ void calculation(double* TOTAL)
 	cout << "Total price is RM ";
 	if (option == 'D' || option == 'd')
 	{
-		*TOTAL = total;
+		*TOTAL = total; //pointer TOTAL points to the value of total, 
 		cout << *TOTAL;
 	}
 	else if (option == 'T' || option == 't')
@@ -193,11 +195,11 @@ void WesternFoodOrdering(string* name, int* quantity, double* pricePerEach)
 		for (int i = 0; i < 5; ++i)
 		{
 			cout << "\t\t" << i + 1 << ") " << westernFood[i].name << " (" << westernFood[i].code << ") - RM " << westernFood[i].price << endl;
-		}
+		} //print out the menu for western food from the array of struct of westernFood
 		cout << "\t\tYour selection : ";
 		cin >> option4;
 		if (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b")
-			std::cout << "\t\t*******Wrong input dear :V*******" << endl;
+			cout << "\t\t*******Wrong input dear :V*******" << endl;
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> *quantity;
@@ -215,7 +217,7 @@ void WesternFoodOrdering(string* name, int* quantity, double* pricePerEach)
 			break;
 	}
 	if (option4 == "FCC" || option4 == "fcc") {
-		price = 12 * *quantity;
+		price = 12 * *quantity; //pointer of quantity contain the value in quantity
 		total += price;
 		*name = westernFood[0].name;
 		*pricePerEach = westernFood[0].price;
@@ -395,7 +397,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		if (option == 'D' || option == 'd')
 		{
 			cout << "\t\tAmount paid >> RM ";
-			cin >> paid;
+			cin >> *Paid;
 			//if user enters alphabet
 			while (1)
 			{
@@ -404,18 +406,18 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\t\tPlease enter a number." << endl
 						<< "\t\tAmount paid >> RM ";
-					cin >> paid;
+					cin >> *Paid;
 				}
 				if (!cin.fail())
 					break;
 			}
-			balance = paid - total;
+			balance = *Paid - total;
 			cout << "\t\tBalance >> RM " << balance;
 		}
 		//if user chooses takeaway
 		else {
 			cout << "\t\tAmount paid >> RM ";
-			cin >> paid;
+			cin >> *Paid;
 			//if user enters alphabet
 			while (1)
 			{
@@ -424,12 +426,12 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\t\tPlease enter a number." << endl
 						<< "\t\tAmount paid >> RM ";
-					cin >> paid;
+					cin >> *Paid;
 				}
 				if (!cin.fail())
 					break;
 			}
-			balance = paid - TOTAL;
+			balance = *Paid - TOTAL;
 			cout << "\t\tBalance >> RM " << balance;
 		}
 		*paymentmethod = Paymentmethod[0];
@@ -465,7 +467,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)
 {
 	int j;
-	ofstream outputfile("Receipt.txt", ios::out);
+	ofstream outputfile("Receipt.txt", ios::out|ios::app); //open outputfile named Receipt.txt
 	outputfile << "\n***********************************************************************" << endl;
 	outputfile << "\t\t\t\tRECEIPT" << endl;
 	outputfile << "***********************************************************************" << endl;
