@@ -20,10 +20,10 @@ struct DrinkItem
 struct Receipt
 {
 	string name;
-	int quantity;
-	double pricePerEach;
+	int quantity = 0;
+	double pricePerEach = 0;
 };
-Receipt receipt[50]; 
+Receipt receipt[50];
 
 
 //Declare array of struct for westernFood,localFood,drinks
@@ -65,7 +65,9 @@ void LocalFoodOrdering(string* name, int* quantity, double* pricePerEach);
 void Drink(string* name, int* quantity, double* pricePerEach);
 void calculation(double* TOTAL);
 void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7);
+void DisplayCart();
 void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7);
+void ReceiptCopy(double TOTAL, double Paid, double Balance, int order, string opt7);
 
 int main()
 {	// Define arrays for food items
@@ -74,6 +76,7 @@ int main()
 	string option3; //option3 is a string since it has more than one alphabet
 	string answer;
 	int i = 0;
+	char checkout;
 
 	//Display our homepage
 	cout << "*************************************************************************" << endl;
@@ -92,10 +95,11 @@ int main()
 		 the user didn't enter the correct input*/
 	if (option == 'T' || option == 't' || option == 'D' || option == 'd')
 	{
+
 		do
 		{
+			order++; //updating for order as it will be used in the DisplayReceipt function
 			do {
-				order++; //updating for order as it will be used in the DisplayReceipt function 
 				cout << "\n\tPlease enter F for FOOD and D for DRINKS >> ";
 				cin >> option2;
 				if (option2 == 'F' || option2 == 'f')
@@ -118,7 +122,7 @@ int main()
 						WesternFoodOrdering(&name, &quantity, &pricePerEach); //function call of WesternFoodOrdering, the value is passed from the pointer to the address of each variable
 						receipt[i].quantity = quantity;
 						receipt[i].name = name;  /*eg. the pointer in the function definition for name (*name) will point to value in certain
-						                          element in the westernFood[].name, then when receipt[i].name = name, it will refer to value store in &name*/
+												  element in the westernFood[].name, then when receipt[i].name = name, it will refer to value store in &name*/
 						receipt[i].pricePerEach = pricePerEach;
 						i++;
 						cout << "Do you wish to add more to your cart? :D (y/n) >> ";
@@ -156,22 +160,37 @@ int main()
 			//if the user chooses other than F and D, it will loop back to the top where it asks user to choose food and drinks
 		} while (answer == "Y" || answer == "y");
 		//if the user chooses Y (to add more to the cart), it will loop back to the top where it asks user to choose food and drinks
-
-		calculation(&TOTAL);
 	}
 	else
 		cout << "\t\tYou've entered the wrong input, please try again." << endl;
 	//if user enters input other than F and D, this will be displayed
-	Payment(&paid, &balance, &paymentmethod, &opt7); 
-	DisplayReceipt(TOTAL, paid, balance, order, opt7);
+	DisplayCart();
+	calculation(&TOTAL);
+	do {
+		cout << "\n\tDo you wish to proceed to payment or cancel order? (P/C)? ";
+		cin >> checkout;
+	} while (!(checkout == 'P' || checkout == 'p' || checkout == 'C' || checkout == 'c'));
 
+	//if user enters a number
+	if (cin.fail() || cin.peek() != '\n' || isdigit(checkout)) {
+		cin.clear();  // Clear the error flag
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
+	}
+	if (checkout == 'P' || checkout == 'p')
+	{
+		Payment(&paid, &balance, &paymentmethod, &opt7);
+		DisplayReceipt(TOTAL, paid, balance, order, opt7);
+		ReceiptCopy(TOTAL, paid, balance, order, opt7);
+	}
+	else if (checkout == 'C' || checkout == 'c')
+		cout << "Order cancelled. See you next time :)";
 	return 0;
 }
 
 //calculation function definition
 void calculation(double* TOTAL)
 {
-	cout << "Total price is RM ";
+	cout << "\tTotal price is RM ";
 	if (option == 'D' || option == 'd')
 	{
 		*TOTAL = total; //pointer TOTAL points to the value of total, 
@@ -181,7 +200,7 @@ void calculation(double* TOTAL)
 	{
 		*TOTAL = total + TAKEAWAYEXTRA;
 		cout << *TOTAL;
-		cout << "**RM0.20 is charged for takeaway.";
+		cout << "\t**RM0.20 is charged for takeaway.";
 	}
 }
 
@@ -372,6 +391,18 @@ void Drink(string* name, int* quantity, double* pricePerEach)
 		*pricePerEach = drinks[4].price;
 	}
 }
+
+//display cart function definition
+void DisplayCart()
+{
+	cout << "\nYour cart: " << endl;
+	cout << "Item Name" << setw(20) << "Item Quantity" << setw(10) << "Subtotal" << endl;
+	for (int i = 0; i < order; i++)
+	{
+		cout << i + 1 << ": " << receipt[i].name << endl;
+		cout << setw(30) << receipt[i].quantity << setw(10) << receipt[i].pricePerEach * receipt[i].quantity << endl;
+	}
+}
 //payment function definition
 void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 {
@@ -467,11 +498,35 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)
 {
 	int j;
-	ofstream outputfile("Receipt.txt", ios::out|ios::app); //open outputfile named Receipt.txt
+	cout << "\n***********************************************************************" << endl;
+	cout << "\t\t\t\tRECEIPT" << endl;
+	cout << "***********************************************************************" << endl;
+	cout << "    Item Name" << setw(25) << "Item Quantity" << setw(14) << " Price" << setw(20) << "Subtotal" << endl;
+	for (j = 0; j < order; j++)
+	{
+		cout << j + 1 << ": " << receipt[j].name << endl;
+		cout << setw(30) << receipt[j].quantity << setw(20) << receipt[j].pricePerEach << setw(20) << receipt[j].quantity * receipt[j].pricePerEach << endl;
+	}
+	cout << "\nPayment Method:\t " << paymentmethod;
+	cout << "\nGrand Total   :RM" << TOTAL << endl;
+	if (opt7 == "C")
+	{
+		cout << "Paid          :RM" << Paid << endl;
+		cout << "Balance       :RM" << Balance << endl;
+	}
+	else
+		cout << "\nPaid.";
+	cout << "Thankyou, please come again." << endl;
+	cout << "***********************************************************************" << endl;
+}
+void ReceiptCopy(double TOTAL, double Paid, double Balance, int order, string opt7)
+{
+	int j;
+	ofstream outputfile("Receipt.txt", ios::out | ios::app); //open outputfile named Receipt.txt
 	outputfile << "\n***********************************************************************" << endl;
 	outputfile << "\t\t\t\tRECEIPT" << endl;
 	outputfile << "***********************************************************************" << endl;
-	outputfile << "    Item Name" << setw(25) << "Item Quantity"  << setw(14) << " Price" << setw(20) << "Subtotal" << endl;
+	outputfile << "    Item Name" << setw(25) << "Item Quantity" << setw(14) << " Price" << setw(20) << "Subtotal" << endl;
 	for (j = 0; j < order; j++)
 	{
 		outputfile << j + 1 << ": " << receipt[j].name << endl;
