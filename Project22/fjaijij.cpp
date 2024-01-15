@@ -60,9 +60,9 @@ string name, ans, paymentmethod, opt7;
 string Paymentmethod[5] = { "Cash","Touch N Go","Maybank QR","Visa","Debit / Credit Card" };
 
 //function declaration (void for all to pass multiple value back to main)
-void WesternFoodOrdering(string* name, int* quantity, double* pricePerEach);
-void LocalFoodOrdering(string* name, int* quantity, double* pricePerEach);
-void Drink(string* name, int* quantity, double* pricePerEach);
+void WesternFoodOrdering(string& name, int& quantity, double& pricePerEach);
+void LocalFoodOrdering(string& name, int& quantity, double& pricePerEach);
+void Drink(string& name, int& quantity, double& pricePerEach);
 void calculation(double* TOTAL);
 void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7);
 void DisplayCart();
@@ -119,7 +119,7 @@ int main()
 					//Western food
 					if (option3 == "WF" || option3 == "wf")
 					{
-						WesternFoodOrdering(&name, &quantity, &pricePerEach); //function call of WesternFoodOrdering, the value is passed from the pointer to the address of each variable
+						WesternFoodOrdering(name, quantity, pricePerEach); //function call of WesternFoodOrdering, the value is passed from the pointer to the address of each variable
 						receipt[i].quantity = quantity;
 						receipt[i].name = name;  /*eg. the pointer in the function definition for name (*name) will point to value in certain
 												  element in the westernFood[].name, then when receipt[i].name = name, it will refer to value store in &name*/
@@ -132,7 +132,7 @@ int main()
 					//Local food
 					else if (option3 == "LF" || option3 == "lf")
 					{
-						LocalFoodOrdering(&name, &quantity, &pricePerEach);
+						LocalFoodOrdering(name, quantity, pricePerEach);
 						receipt[i].quantity = quantity;
 						receipt[i].name = name;
 						receipt[i].pricePerEach = pricePerEach;
@@ -145,7 +145,7 @@ int main()
 				//Drinks
 				else if (option2 == 'D' || option2 == 'd')
 				{
-					Drink(&name, &quantity, &pricePerEach);
+					Drink(name, quantity, pricePerEach);
 					receipt[i].quantity = quantity;
 					receipt[i].name = name;
 					receipt[i].pricePerEach = pricePerEach;
@@ -172,7 +172,8 @@ int main()
 	} while (!(checkout == 'P' || checkout == 'p' || checkout == 'C' || checkout == 'c'));
 
 	//if user enters a number
-	if (cin.fail() || cin.peek() != '\n' || isdigit(checkout)) {
+	if (cin.fail() || cin.peek() != '\n' || isdigit(checkout)) {  /*peek at the next character in the input stream without actually extracting it and
+		checks if the variable checkout contains a digit.*/
 		cin.clear();  // Clear the error flag
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
 	}
@@ -198,14 +199,14 @@ void calculation(double* TOTAL)
 	}
 	else if (option == 'T' || option == 't')
 	{
-		*TOTAL = total + TAKEAWAYEXTRA;
+		*TOTAL = total + TAKEAWAYEXTRA;//have charge for takeaway
 		cout << *TOTAL;
 		cout << "\t**RM0.20 is charged for takeaway.";
 	}
 }
 
 //western food ordering function definition
-void WesternFoodOrdering(string* name, int* quantity, double* pricePerEach)
+void WesternFoodOrdering(string& name, int& quantity, double& pricePerEach)//pass by reference for name ,quantity,pricePerEach
 {
 	string option4;
 	do {
@@ -221,54 +222,54 @@ void WesternFoodOrdering(string* name, int* quantity, double* pricePerEach)
 			cout << "\t\t*******Wrong input dear :V*******" << endl;
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
-	cin >> *quantity;
+	cin >> quantity;
 	//if user enters alphabet
 	while (1)
 	{
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		if (cin.fail()) {    //checks if the previous input is non-numeric
+			cin.clear();	// clear the error flag
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');     // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
-			cin >> *quantity;
+			cin >> quantity;
 		}
 		if (!cin.fail())
-			break;
+			break;     //a numeric value was entered, the loop is exited with break.
 	}
-	if (option4 == "FCC" || option4 == "fcc") {
-		price = 12 * *quantity; //pointer of quantity contain the value in quantity
+	if (option4 == "FCC" || option4 == "fcc") {   //if choose Fried Chicken Chop
+		price = 12 * quantity;
 		total += price;
-		*name = westernFood[0].name;
-		*pricePerEach = westernFood[0].price;
+		name = westernFood[0].name;
+		pricePerEach = westernFood[0].price;
 	}
-	else if (option4 == "FC" || option4 == "fc") {
-		price = 14.50 * *quantity;
+	else if (option4 == "FC" || option4 == "fc") {  //if choose Fish and Chips
+		price = 14.50 * quantity;
 		total += price;
-		*name = westernFood[1].name;
-		*pricePerEach = westernFood[1].price;
+		name = westernFood[1].name;
+		pricePerEach = westernFood[1].price;
 	}
-	else if (option4 == "S" || option4 == "s") {
-		price = 10.50 * *quantity;
+	else if (option4 == "S" || option4 == "s") {   //if choose Spaghetti
+		price = 10.50 * quantity;
 		total += price;
-		*name = westernFood[2].name;
-		*pricePerEach = westernFood[2].price;
+		name = westernFood[2].name;
+		pricePerEach = westernFood[2].price;
 	}
-	else if (option4 == "P" || option4 == "p") {
-		price = 12.50 * *quantity;
+	else if (option4 == "P" || option4 == "p") {    //if choose  Pizza
+		price = 12.50 * quantity;
 		total += price;
-		*name = westernFood[3].name;
-		*pricePerEach = westernFood[3].price;
+		name = westernFood[3].name;
+		pricePerEach = westernFood[3].price;
 	}
-	else if (option4 == "B" || option4 == "b") {
-		price = 5.50 * *quantity;
+	else if (option4 == "B" || option4 == "b") {   //if choose  Burger
+		price = 5.50 * quantity;
 		total += price;
-		*name = westernFood[4].name;
-		*pricePerEach = westernFood[4].price;
+		name = westernFood[4].name;
+		pricePerEach = westernFood[4].price;
 	}
 }
 
 //local food ordering function definition
-void LocalFoodOrdering(string* name, int* quantity, double* pricePerEach)
+void LocalFoodOrdering(string& name, int& quantity, double& pricePerEach)//pass by reference for name ,quantity,pricePerEach
 {
 	string option5;
 	do {
@@ -284,53 +285,53 @@ void LocalFoodOrdering(string* name, int* quantity, double* pricePerEach)
 			cout << "Hmmmm....seems like you've entered wrong input. Please try againnnnnnnnnnnnnnnnnnnnnnnnnnnn" << endl;
 	} while (option5 != "NL" && option5 != "nl" && option5 != "AL" && option5 != "al" && option5 != "CM" && option5 != "cm" && option5 != "RC" && option5 != "rc" && option5 != "NK" && option5 != "nk");
 	cout << "\t\tPlease enter the quantity >> ";
-	cin >> *quantity;
+	cin >> quantity;
 	//if user enters alphabet
 	while (1)
 	{
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		if (cin.fail()) {   //checks if the previous input is non-numeric
+			cin.clear();   // clear the error flag
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
-			cin >> *quantity;
+			cin >> quantity;
 		}
 		if (!cin.fail())
-			break;
+			break;       //a numeric value was entered, the loop is exited with break.
 	}
-	if (option5 == "NL" || option5 == "nl") {
-		price = 7 * *quantity;
+	if (option5 == "NL" || option5 == "nl") {   //if choose Nasi Lemak
+		price = 7 * quantity;
 		total += price;
-		*name = localFood[0].name;
-		*pricePerEach = localFood[0].price;
+		name = localFood[0].name;
+		pricePerEach = localFood[0].price;
 	}
-	else if (option5 == "AL" || option5 == "al") {
-		price = 7 * *quantity;
+	else if (option5 == "AL" || option5 == "al") {    //if choose Assam Laksa
+		price = 7 * quantity;
 		total += price;
-		*name = localFood[1].name;
-		*pricePerEach = localFood[1].price;
+		name = localFood[1].name;
+		pricePerEach = localFood[1].price;
 	}
-	else if (option5 == "CM" || option5 == "cm") {
-		price = 7 * *quantity;
+	else if (option5 == "CM" || option5 == "cm") {    //if choose Curry Mee
+		price = 7 * quantity;
 		total += price;
-		*name = localFood[2].name;
-		*pricePerEach = localFood[2].price;
+		name = localFood[2].name;
+		pricePerEach = localFood[2].price;
 	}
-	else if (option5 == "RC" || option5 == "rc") {
-		price = 1.50 * *quantity;
+	else if (option5 == "RC" || option5 == "rc") {    //if choose  Roti Canai
+		price = 1.50 * quantity;
 		total += price;
-		*name = localFood[3].name;
-		*pricePerEach = localFood[3].price;
+		name = localFood[3].name;
+		pricePerEach = localFood[3].price;
 	}
-	else if (option5 == "NK" || option5 == "nk") {
-		price = 7 * *quantity;
+	else if (option5 == "NK" || option5 == "nk") {     //if choose  Nasi Kerabu
+		price = 7 * quantity;
 		total += price;
-		*name = localFood[4].name;
-		*pricePerEach = localFood[4].price;
+		name = localFood[4].name;
+		pricePerEach = localFood[4].price;
 	}
 }
 
-void Drink(string* name, int* quantity, double* pricePerEach)
+void Drink(string& name, int& quantity, double& pricePerEach)//pass by reference for name ,quantity,pricePerEach
 {
 	string option6;
 	do {
@@ -345,50 +346,50 @@ void Drink(string* name, int* quantity, double* pricePerEach)
 			cout << "\t\tni hao :D wrong input le :C" << endl;
 	} while (option6 != "M" && option6 != "m" && option6 != "TT" && option6 != "tt" && option6 != "KO" && option6 != "ko" && option6 != "LT" && option6 != "lt" && option6 != "OJ" && option6 != "oj");
 	cout << "\t\tPlease enter the quantity >> ";
-	cin >> *quantity;
+	cin >> quantity;
 	//if user enters alphabet
-	while (1)
+	while (1)// infinite loop that continues until a valid numeric input is received.
 	{
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		if (cin.fail()) {      //checks if the previous input is non-numeric
+			cin.clear();		// clear the error flag
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');   // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
-			cin >> *quantity;
+			cin >> quantity;
 		}
 		if (!cin.fail())
-			break;
+			break; //a numeric value was entered, the loop is exited with break.
 	}
-	if (option6 == "M" || option6 == "m") {
-		price = 2.50 * *quantity;
+	if (option6 == "M" || option6 == "m") {     //if choose Milo
+		price = 2.50 * quantity;
 		total += price;
-		*name = drinks[0].name;
-		*pricePerEach = drinks[0].price;
+		name = drinks[0].name;
+		pricePerEach = drinks[0].price;
 
 	}
-	else if (option6 == "T" || option6 == "tt") {
-		price = 2.50 * *quantity;
+	else if (option6 == "T" || option6 == "tt") {   //if choose Teh Tarik
+		price = 2.50 * quantity;
 		total += price;
-		*name = drinks[1].name;
-		*pricePerEach = drinks[1].price;
+		name = drinks[1].name;
+		pricePerEach = drinks[1].price;
 	}
-	else if (option6 == "KO" || option6 == "ko") {
-		price = 2 * *quantity;
+	else if (option6 == "KO" || option6 == "ko") {  //if choose Kopi O
+		price = 2 * quantity;
 		total += price;
-		*name = drinks[2].name;
-		*pricePerEach = drinks[2].price;
+		name = drinks[2].name;
+		pricePerEach = drinks[2].price;
 	}
-	else if (option6 == "LT" || option6 == "lt") {
-		price = 3 * *quantity;
+	else if (option6 == "LT" || option6 == "lt") {  //if choose Lemon Tea
+		price = 3 * quantity;
 		total += price;
-		*name = drinks[3].name;
-		*pricePerEach = drinks[3].price;
+		name = drinks[3].name;
+		pricePerEach = drinks[3].price;
 	}
-	else if (option6 == "OJ" || option6 == "oj") {
-		price = 3.50 * *quantity;
+	else if (option6 == "OJ" || option6 == "oj") {   //if choose Orange Juice
+		price = 3.50 * quantity;
 		total += price;
-		*name = drinks[4].name;
-		*pricePerEach = drinks[4].price;
+		name = drinks[4].name;
+		pricePerEach = drinks[4].price;
 	}
 }
 
@@ -422,7 +423,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		}
 	} while (option7 != "C" && option7 != "c" && option7 != "TNG" && option7 != "tng" && option7 != "MQR" && option7 != "mqr" && option7 != "V" && option7 != "v" && option7 != "DC" && option7 != "dc");
 
-	if (option7 == "C" || option7 == "c")
+	if (option7 == "C" || option7 == "c")  //if choose cash
 	{
 		//if user chooses dine in
 		if (option == 'D' || option == 'd')
@@ -439,7 +440,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 						<< "\t\tAmount paid >> RM ";
 					cin >> *Paid;
 				}
-				if (!cin.fail())
+				if (!cin.fail())  //a numeric value was entered, the loop is exited with break.
 					break;
 			}
 			balance = *Paid - total;
@@ -452,9 +453,9 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 			//if user enters alphabet
 			while (1)
 			{
-				if (cin.fail()) {
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				if (cin.fail()) {   //checks if the previous input is non-numeric
+					cin.clear();   // clear the error flag
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');  // discard the invalid input in the input buffer
 					cout << "\t\tPlease enter a number." << endl
 						<< "\t\tAmount paid >> RM ";
 					cin >> *Paid;
@@ -468,7 +469,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		*paymentmethod = Paymentmethod[0];
 		*opt7 = "C";
 	}
-	else if (option7 == "TNG" || option7 == "tng" || option7 == "MQR" || option7 == "mqr")
+	else if (option7 == "TNG" || option7 == "tng" || option7 == "MQR" || option7 == "mqr")   //if choose TNG and Maybank QR
 	{
 		cout << "Please scan the QR code displayed on the screen. Thankiuuu ~~";
 		if (option7 == "TNG" || option7 == "tng")
@@ -478,7 +479,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 			*paymentmethod = Paymentmethod[2];
 		*opt7 = "MQR";
 	}
-	else if (option7 == "V" || option7 == "v" || option7 == "DC" || option7 == "dc") {
+	else if (option7 == "V" || option7 == "v" || option7 == "DC" || option7 == "dc") {     //if choose visa and debit/credit card
 
 		if (option7 == "V" || option7 == "v")
 			*paymentmethod = Paymentmethod[3];
@@ -495,7 +496,7 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		*opt7 = option7;
 	}
 }
-void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)
+void DisplayReceipt(double TOTAL, double Paid, double Balance, int order, string opt7)//Print out receipt statement
 {
 	int j;
 	cout << "\n***********************************************************************" << endl;
