@@ -367,7 +367,7 @@ void Drink(string& name, int& quantity, double& pricePerEach)//pass by reference
 		pricePerEach = drinks[0].price;
 
 	}
-	else if (option6 == "T" || option6 == "tt") {   //if choose Teh Tarik
+	else if (option6 == "TT" || option6 == "tt") {   //if choose Teh Tarik
 		price = 2.50 * quantity;
 		total += price;
 		name = drinks[1].name;
