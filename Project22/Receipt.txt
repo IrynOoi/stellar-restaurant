@@ -58,3 +58,21 @@ Paid          :RM80
 Balance       :RM1
 Thankyou, please come again.
 ***********************************************************************
+
+***********************************************************************
+				RECEIPT
+***********************************************************************
+    Item Name            Item Quantity         Price            Subtotal
+1: Fried Chicken Chop
+                             2                  12                  24
+2: Milo
+                             1                 2.5                 2.5
+3: Orange Juice
+                             2                 3.5                   7
+
+Payment Method:	 Cash
+Grand Total   :RM33.7
+Paid          :RM35
+Balance       :RM1.3
+Thankyou, please come again.
+***********************************************************************

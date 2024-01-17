@@ -119,10 +119,9 @@ int main()
 					//Western food
 					if (option3 == "WF" || option3 == "wf")
 					{
-						WesternFoodOrdering(name, quantity, pricePerEach); //function call of WesternFoodOrdering, the value is passed from the pointer to the address of each variable
+						WesternFoodOrdering(name, quantity, pricePerEach); //function call of WesternFoodOrdering
 						receipt[i].quantity = quantity;
-						receipt[i].name = name;  /*eg. the pointer in the function definition for name (*name) will point to value in certain
-												  element in the westernFood[].name, then when receipt[i].name = name, it will refer to value store in &name*/
+						receipt[i].name = name; 
 						receipt[i].pricePerEach = pricePerEach;
 						i++;
 						cout << "Do you wish to add more to your cart? :D (y/n) >> ";
@@ -179,7 +178,7 @@ int main()
 	}
 	if (checkout == 'P' || checkout == 'p')
 	{
-		Payment(&paid, &balance, &paymentmethod, &opt7);
+		Payment(&paid, &balance, &paymentmethod, &opt7); //In the address of paid will contain the value that is pointed by *Paid
 		DisplayReceipt(TOTAL, paid, balance, order, opt7);
 		ReceiptCopy(TOTAL, paid, balance, order, opt7);
 	}
@@ -405,7 +404,7 @@ void DisplayCart()
 	}
 }
 //payment function definition
-void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
+void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7) /*eg. pointer Paid will point to the value entered by the user, then *Paid will contain the value of it*/
 {
 	string option7, card;
 	do {
@@ -537,8 +536,8 @@ void ReceiptCopy(double TOTAL, double Paid, double Balance, int order, string op
 	outputfile << "\nGrand Total   :RM" << TOTAL << endl;
 	if (opt7 == "C")
 	{
-		outputfile << "Paid          :RM" << Paid << endl;
-		outputfile << "Balance       :RM" << Balance << endl;
+		outputfile << "Paid          :RM" << paid << endl; //paid contain the value of which the *Paid points to
+		outputfile << "Balance       :RM" << balance << endl;
 	}
 	else
 		outputfile << "\nPaid.";
