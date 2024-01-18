@@ -23,7 +23,7 @@ struct Receipt
 	int quantity = 0;
 	double pricePerEach = 0;
 };
-Receipt receipt[50];
+Receipt receipt[50] = {};
 
 
 //Declare array of struct for westernFood,localFood,drinks
@@ -121,7 +121,7 @@ int main()
 					{
 						WesternFoodOrdering(name, quantity, pricePerEach); //function call of WesternFoodOrdering
 						receipt[i].quantity = quantity;
-						receipt[i].name = name; 
+						receipt[i].name = name;
 						receipt[i].pricePerEach = pricePerEach;
 						i++;
 						cout << "Do you wish to add more to your cart? :D (y/n) >> ";
@@ -222,17 +222,17 @@ void WesternFoodOrdering(string& name, int& quantity, double& pricePerEach)//pas
 	} while (option4 != "FCC" && option4 != "fcc" && option4 != "FC" && option4 != "fc" && option4 != "S" && option4 != "s" && option4 != "P" && option4 != "p" && option4 != "B" && option4 != "b");
 	cout << "\t\tPlease enter the quantity >> ";
 	cin >> quantity;
-	//if user enters alphabet
+	//if user enters alphabet or negative number
 	while (1)
 	{
-		if (cin.fail()) {    //checks if the previous input is non-numeric
+		if (cin.fail() || quantity < 0) {    //checks if the previous input is non-numeric
 			cin.clear();	// clear the error flag
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');     // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
 			cin >> quantity;
 		}
-		if (!cin.fail())
+		if (!cin.fail() && quantity >= 0)
 			break;     //a numeric value was entered, the loop is exited with break.
 	}
 	if (option4 == "FCC" || option4 == "fcc") {   //if choose Fried Chicken Chop
@@ -288,14 +288,14 @@ void LocalFoodOrdering(string& name, int& quantity, double& pricePerEach)//pass 
 	//if user enters alphabet
 	while (1)
 	{
-		if (cin.fail()) {   //checks if the previous input is non-numeric
+		if (cin.fail() || quantity < 0) {   //checks if the previous input is non-numeric
 			cin.clear();   // clear the error flag
 			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
 			cin >> quantity;
 		}
-		if (!cin.fail())
+		if (!cin.fail() && quantity >= 0)
 			break;       //a numeric value was entered, the loop is exited with break.
 	}
 	if (option5 == "NL" || option5 == "nl") {   //if choose Nasi Lemak
@@ -349,14 +349,15 @@ void Drink(string& name, int& quantity, double& pricePerEach)//pass by reference
 	//if user enters alphabet
 	while (1)// infinite loop that continues until a valid numeric input is received.
 	{
-		if (cin.fail()) {      //checks if the previous input is non-numeric
+		if (cin.fail() || quantity < 0)
+		{      //checks if the previous input is non-numeric
 			cin.clear();		// clear the error flag
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');   // discard the invalid input in the input buffer.
 			cout << "\t\tPlease enter a number." << endl
 				<< "\t\tPlease enter the quantity >> ";
 			cin >> quantity;
 		}
-		if (!cin.fail())
+		if (!cin.fail() && quantity >= 0)
 			break; //a numeric value was entered, the loop is exited with break.
 	}
 	if (option6 == "M" || option6 == "m") {     //if choose Milo
@@ -429,17 +430,18 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		{
 			cout << "\t\tAmount paid >> RM ";
 			cin >> *Paid;
-			//if user enters alphabet
+			//if user enters alphabet or negative value
 			while (1)
 			{
-				if (cin.fail()) {
+				if (cin.fail() || *Paid < 0)
+				{
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cout << "\t\tPlease enter a number." << endl
 						<< "\t\tAmount paid >> RM ";
 					cin >> *Paid;
 				}
-				if (!cin.fail())  //a numeric value was entered, the loop is exited with break.
+				if (!cin.fail() && *Paid >= 0)  //a positive numeric value was entered, the loop is exited with break.
 					break;
 			}
 			balance = *Paid - total;
@@ -449,17 +451,17 @@ void Payment(double* Paid, double* Balance, string* paymentmethod, string* opt7)
 		else {
 			cout << "\t\tAmount paid >> RM ";
 			cin >> *Paid;
-			//if user enters alphabet
+			//if user enters alphabet or negative value
 			while (1)
 			{
-				if (cin.fail()) {   //checks if the previous input is non-numeric
+				if (cin.fail() || *Paid < 0) {   //checks if the previous input is non-numeric or negative number
 					cin.clear();   // clear the error flag
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');  // discard the invalid input in the input buffer
 					cout << "\t\tPlease enter a number." << endl
 						<< "\t\tAmount paid >> RM ";
 					cin >> *Paid;
 				}
-				if (!cin.fail())
+				if (!cin.fail() && *Paid >= 0)
 					break;
 			}
 			balance = *Paid - TOTAL;
