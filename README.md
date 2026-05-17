@@ -11,7 +11,9 @@ From the restaurant staff's perspective, the program reduces the manpower requir
 
 # Objectives
 -To compute an upgraded restaurant system which is more efficient, convenient, and comprehensive.
+<br><br>
 -To fulfill customers satisfaction in payment process, ordering process and customer service.
+<br><br>
 -To promote cashierless food ordering system in most of the restaurants.
 
 
