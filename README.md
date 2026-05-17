@@ -9,6 +9,10 @@ This program significantly improves the efficiency and accuracy of the order-tak
 
 From the restaurant staff's perspective, the program reduces the manpower required for order-related tasks, leading to a decrease in monthly operational costs and minimizing the occurrence of human errors. The program initiates by collecting input data from the customer, displaying the restaurant name, followed by a menu featuring Western and local cuisines. Customers select a dish and at the program's conclusion, receive the total price of the dish.
 
+# Objectives
+-To compute an upgraded restaurant system which is more efficient, convenient, and comprehensive.
+-To fulfill customers satisfaction in payment process, ordering process and customer service.
+-To promote cashierless food ordering system in most of the restaurants.
 
 
 # STELLAR RESTAURANT
