@@ -1,4 +1,4 @@
-#STELLAR RESTAURANT SYSTEM
+# STELLAR RESTAURANT SYSTEM
 ## 📌 Overview
 The **Cashierless Food Ordering System** is a C++ console-based application designed to modernize traditional restaurant ordering. It replaces manual ordering with a self-service flow, reducing wait times, minimizing human errors, and improving billing accuracy.
 
