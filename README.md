@@ -1,20 +1,52 @@
-# INTRODUCTION
-Self-service food ordering systems have been on the rise since the pandemic alongside the rise of technology in this modern age. The system gives customers the power to order and pay by themselves without human interaction. These systems guide customers through the ordering process- from building their meal, to payment and pickup. 
+#STELLAR RESTAURANT SYSTEM
+## 📌 Overview
+The **Cashierless Food Ordering System** is a C++ console-based application designed to modernize traditional restaurant ordering. It replaces manual ordering with a self-service flow, reducing wait times, minimizing human errors, and improving billing accuracy.
 
-	In the early stages, many restaurants relied on traditional ordering systems to cater to customers. The conventional approach involved staff manually jotting down customer orders, passing the order paper to the kitchen, and then commencing the cooking process. However, this system heavily depended on manpower, resulting in various inconveniences for both staff and customers due to the significant amount of manual work involved.
+---
 
-The drawbacks of the traditional ordering system included human errors such as providing incorrect bills, illegible handwriting, and mismanagement of order sequences. These errors often led to customer dissatisfaction. To address these challenges, a program called the Self-Service Food Ordering System has been developed in this project to enhance restaurant management.
+## 🎯 Objectives
+- Eliminate manual ordering inefficiencies
+- Provide a self-service ordering experience
+- Ensure accurate billing and receipt generation
+- Simulate a real-world cashierless system
 
-This program significantly improves the efficiency and accuracy of the order-taking process in the food ordering system. It reduces the time required to place an order, eliminating the need for customers to wait for service in the restaurant. Additionally, the program addresses potential barriers to ordering, such as embarrassment or anxiety, by allowing customers to place orders without face-to-face interaction. Language barriers, mispronunciations, and order errors are also mitigated.
+---
 
-From the restaurant staff's perspective, the program reduces the manpower required for order-related tasks, leading to a decrease in monthly operational costs and minimizing the occurrence of human errors. The program initiates by collecting input data from the customer, displaying the restaurant name, followed by a menu featuring Western and local cuisines. Customers select a dish and at the program's conclusion, receive the total price of the dish.
+## ⚙️ Features
+- 🍴 Choose order type:
+  - Dine-in
+  - Takeaway
+- 📋 Menu categories:
+  - Western Food
+  - Local Food
+  - Drinks
+- 🛒 Cart system with total calculation
+- 💳 Payment method selection
+- 🧾 Receipt generation (`Receipt.txt`)
+- ✅ Input validation for invalid user entries
 
-# Objectives
--To compute an upgraded restaurant system which is more efficient, convenient, and comprehensive.
-<br><br>
--To fulfill customers satisfaction in payment process, ordering process and customer service.
-<br><br>
--To promote cashierless food ordering system in most of the restaurants.
+---
+
+## 🧠 Implementation Details
+
+### 📊 Data Structures
+- `struct FoodItem` → Stores food details  
+- `struct DrinkItem` → Stores drink details  
+- `struct Receipt` → Stores order summary  
+
+### 🔧 Core Functions
+- `WesternFoodOrdering()` → Handles western menu orders  
+- `LocalFoodOrdering()` → Handles local menu orders  
+- `Drink()` → Handles drink selection  
+- `DisplayCart()` → Shows selected items and total  
+- `Payment()` → Processes payment method  
+- `DisplayReceipt()` → Outputs receipt  
+
+---
+
+## 💰 Pricing Logic
+- Calculates total based on selected items
+- Adds **RM0.20 surcharge** for takeaway orders
 
 
 # STELLAR RESTAURANT
